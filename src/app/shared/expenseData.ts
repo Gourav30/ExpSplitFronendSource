@@ -4,6 +4,7 @@ export interface expenseData{
     expenseDescription:string;
     expenseAmount:number;
     createdBy: string;
+    updatedBy: string;
     paidBy:Array<object>;
     usersInvolved:Array<object>;
  }

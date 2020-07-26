@@ -44,10 +44,8 @@ export class LoginComponent implements OnInit {
             console.log(result.data);
 
             Cookie.set('authToken', result.data.authToken);
-
             Cookie.set('userId', result.data.userDetails.userId);
             Cookie.set('_id', result.data.userDetails._id);
-
             Cookie.set('userName', result.data.userDetails.firstName + ' ' + result.data.userDetails.lastName);
 
             this.service.setUserInfoInLocalStorage(result.data.userDetails);
@@ -55,7 +53,6 @@ export class LoginComponent implements OnInit {
                 setTimeout(()=>{
                   this.router.navigate(['userdashboard']);
                 },1000)
-
           }
           else {
 
@@ -69,5 +66,4 @@ export class LoginComponent implements OnInit {
     }
   }
   //End of Login code end
-
 }

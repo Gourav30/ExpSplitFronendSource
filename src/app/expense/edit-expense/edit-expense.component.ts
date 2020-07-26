@@ -13,7 +13,7 @@ import { SocketService } from 'src/app/socket.service';
   selector: 'app-edit-expense',
   templateUrl: './edit-expense.component.html',
   styleUrls: ['./edit-expense.component.css'],
-  providers:[SocketService]
+  providers: [SocketService]
 })
 export class EditExpenseComponent implements OnInit {
 
@@ -26,6 +26,7 @@ export class EditExpenseComponent implements OnInit {
   public paidBy = [];
   public usersInvolved = [];
   public createdBy: any;
+  public updatedBy: any;
   public groupId: any;
   public groupName: string;
 
@@ -37,13 +38,14 @@ export class EditExpenseComponent implements OnInit {
   public usersInvolvedSelected = [];
 
   constructor(public _route: ActivatedRoute, public router: Router,
-              public expenseHttpService: ExpenseHttpService,
-              public groupHttpService: GroupHttpService,
-              public socketService:SocketService,public toastr: ToastrService,
-              public location: Location) { }
+    public expenseHttpService: ExpenseHttpService,
+    public groupHttpService: GroupHttpService,
+    public socketService: SocketService, public toastr: ToastrService,
+    public location: Location) { }
 
   ngOnInit() {
-    this.userId=Cookie.get('userId');
+    this.userId = Cookie.get('userId');
+    this.updatedBy = Cookie.get('userId');
     this.expenseId = this._route.snapshot.paramMap.get('expenseId');
     this.getSingleExpenseDetails(this.expenseId);
   }
@@ -79,23 +81,24 @@ export class EditExpenseComponent implements OnInit {
   }
 
 
-// Edit code start
+  // Edit code start
 
   public editExpense = () => {
 
-    this.paidBy=[];
-    this.usersInvolved=[];
+    this.paidBy = [];
+    this.usersInvolved = [];
+    //this.updatedBy = '';
 
     let noOfPaidUsers = this.paidBySelectedUsers.length;
 
     this.amountLent = this.expenseAmount / noOfPaidUsers;
 
-    console.log("paidBySelectedUsers"+this.paidBySelectedUsers)
+    console.log("paidBySelectedUsers" + this.paidBySelectedUsers)
     this.paidBySelectedUsers.forEach(element => {
       this.paidBy.push({ user: element, amountLent: this.amountLent })
     });
 
-    console.log("paidBy"+this.paidBy);
+    console.log("paidBy" + this.paidBy);
 
     let noOfUsersInvolved = this.usersInvolvedSelected.length;
 
@@ -105,11 +108,12 @@ export class EditExpenseComponent implements OnInit {
       this.usersInvolved.push({ user: element, amountSpent: this.amountSpent })
     });
 
-      this.expenseData.expenseTitle= this.expenseTitle,
-      this.expenseData.expenseDescription= this.expenseDescription,
-      this.expenseData.expenseAmount= this.expenseAmount,
-      this.expenseData.paidBy= this.paidBy,
-      this.expenseData.usersInvolved= this.usersInvolved
+      this.expenseData.expenseTitle = this.expenseTitle,
+      this.expenseData.expenseDescription = this.expenseDescription,
+      this.expenseData.expenseAmount = this.expenseAmount,
+      this.expenseData.updatedBy = this.updatedBy,
+      this.expenseData.paidBy = this.paidBy,
+      this.expenseData.usersInvolved = this.usersInvolved
 
 
     this.expenseHttpService.updateExpense(this.expenseData).subscribe(

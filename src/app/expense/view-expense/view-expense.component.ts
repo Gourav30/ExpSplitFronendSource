@@ -49,8 +49,8 @@ export class ViewExpenseComponent implements OnInit {
     this.expenseHttpService.getSingleExpenseDetails(expenseId).subscribe((apiresponse) => {
       //console.log('apiresponseuserofexp: ' + apiresponse.users[0].socketroom);
       this.expenseData=apiresponse.data;
-      let array1=apiresponse.data.paidBy;
 
+      let array1=apiresponse.data.paidBy;
       console.log("Expense paidBy:"+JSON.stringify(array1))
       array1.forEach(element => {
         this.paidByUsers.push({'userName':element.user.firstName,'amountLent':element.amountLent})

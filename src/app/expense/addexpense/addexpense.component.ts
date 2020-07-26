@@ -26,6 +26,7 @@ export class AddexpenseComponent implements OnInit {
   public PaidBy: Array<object> = [];
   public usersInvolved: Array<object> = [];
   public createdBy: any;
+  public updatedBy: any;
   public groupId: any;
   public groupName: string;
 
@@ -50,6 +51,7 @@ export class AddexpenseComponent implements OnInit {
     //console.log(this.groupId);
     this.user_Id = this.cookieService.get('_id');
     this.createdBy = this.user_Id;
+    this.updatedBy = this.cookieService.get('_id');
     this.getSingleGroupDetails(this.groupId);
     this.getAllUsersForGroup(this.groupId);
   }
@@ -99,6 +101,7 @@ export class AddexpenseComponent implements OnInit {
         expenseDescription: this.expenseDescription,
         expenseAmount: this.expenseAmount,
         createdBy: this.createdBy,
+        updatedBy: this.updatedBy,
         paidBy: this.PaidBy,
         usersInvolved: this.usersInvolved
       };

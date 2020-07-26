@@ -1,21 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { userData } from './shared/userData';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserHttpService {
+  private userSubject: BehaviorSubject<userData>;
+  public user: Observable<userData>;
 
-  //public baseurl ='http://localhost:3000/api/v1/users';
-  public baseurl = 'http://api.gourav.tech/api/v1/users';
+  public baseurl ='http://localhost:3000/api/v1/users';
+  //public baseurl = 'http://api.gourav.tech/api/v1/users';
 
   public authToken = Cookie.get('authToken');
 
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient) {
+    this.userSubject = new BehaviorSubject<userData>(JSON.parse(localStorage.getItem('userInfo')));
+    this.user = this.userSubject.asObservable();
+  }
+
+  public get userValue(): userData {
+    return this.userSubject.value;
+}
 
   public getUserInfoFromLocalstorage = () => {
 

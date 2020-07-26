@@ -8,8 +8,8 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 })
 export class GroupHttpService {
 
-//public baseurl ='http://localhost:3000/api/v1/groups';
-public baseurl = 'http://api.gourav.tech/api/v1/groups';
+public baseurl ='http://localhost:3000/api/v1/groups';
+//public baseurl = 'http://api.gourav.tech/api/v1/groups';
 
 public authToken = Cookie.get('authToken');
 

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CreateGroupComponent } from './create-group/create-group.component';
-//import { UpdateGroupComponent } from './update-group/update-group.component';
 import { UserRouteguardService } from '../shared/user-routeguard.service';
 import { RouterModule } from '@angular/router';
 
