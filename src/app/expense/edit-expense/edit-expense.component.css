@@ -1,0 +1,31 @@
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+.flex-container {
+    display: flex;
+   justify-content: space-around;
+
+  }
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+  }
+.edit {
+    width:100%;
+    text-align:center;
+}
+
+.back{
+    width:100%;
+    text-align: center;
+}
+.deletebutton:hover {
+    background-color:rgb(241, 60, 60);
+  }
+  .delete {
+      width:100%;
+      text-align:center;
+  }
+.back1:hover {
+    background-color:navy;
+}

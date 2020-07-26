@@ -1,0 +1,27 @@
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+.title{
+
+    text-align: center;
+   color: white;
+}
+.btn-secondary{
+    /* / width:100%; */
+    margin:10px;
+     float: right;
+    background-color:white;
+    color:black
+
+   }
+   .groupUser{
+    font: 900;
+    color: rgb(9, 132, 136);
+   }
+   .lent{
+       font: 900;
+       color: rgb(4, 18, 78);
+   }
+   .spent{
+    font: 900;
+    color: rgb(235, 13, 13);
+   }

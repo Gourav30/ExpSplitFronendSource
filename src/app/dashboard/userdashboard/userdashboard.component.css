@@ -1,0 +1,25 @@
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+.btn-secondary{
+    /* / width:100%; */
+    margin:10px;
+     float: right;
+    background-color:white;
+    color:black
+
+   }
+
+   .title{
+
+    text-align: center;
+   color: white;
+}
+
+.lent{
+    font: 900;
+    color: rgb(3, 51, 3)
+}
+.spent{
+    font: 900;
+    color: red;
+}
