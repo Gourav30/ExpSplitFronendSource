@@ -8,8 +8,8 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 })
 export class ExpenseHttpService {
 
-  public baseurl ='http://localhost:3000/api/v1/expenses';
-  //public baseurl = 'http://api.gourav.tech/api/v1/expenses';
+  //public baseurl ='http://localhost:3000/api/v1/expenses';
+  public baseurl = 'http://api.gourav.tech/api/v1/expenses';
 
   public authToken = Cookie.get('authToken');
 

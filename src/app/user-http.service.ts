@@ -11,8 +11,8 @@ export class UserHttpService {
   private userSubject: BehaviorSubject<userData>;
   public user: Observable<userData>;
 
-  public baseurl ='http://localhost:3000/api/v1/users';
-  //public baseurl = 'http://api.gourav.tech/api/v1/users';
+  //public baseurl ='http://localhost:3000/api/v1/users';
+  public baseurl = 'http://api.gourav.tech/api/v1/users';
 
   public authToken = Cookie.get('authToken');
 

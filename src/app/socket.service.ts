@@ -12,8 +12,8 @@ export class SocketService {
   public socket: any;
 
   constructor( public toastr:ToastrService) {
-    this.baseUrl = 'http://localhost:3000';
-    //this.baseUrl = 'http://api.gourav.tech';
+    //this.baseUrl = 'http://localhost:3000';
+    this.baseUrl = 'http://api.gourav.tech';
 
     this.socket = io(this.baseUrl);
   }
