@@ -4,6 +4,7 @@ import { ExpenseHttpService } from 'src/app/expense-http.service';
 import { element } from 'protractor';
 import { ToastrService } from 'ngx-toastr';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { CookieService } from 'ng2-cookies';
 import { Location } from '@angular/common';
 import { expenseData } from 'src/app/shared/expenseData';
 import { GroupHttpService } from 'src/app/group-http.service';
@@ -13,7 +14,7 @@ import { SocketService } from 'src/app/socket.service';
   selector: 'app-edit-expense',
   templateUrl: './edit-expense.component.html',
   styleUrls: ['./edit-expense.component.css'],
-  providers: [SocketService]
+  providers: [SocketService, CookieService]
 })
 export class EditExpenseComponent implements OnInit {
 
@@ -30,22 +31,25 @@ export class EditExpenseComponent implements OnInit {
   public groupId: any;
   public groupName: string;
 
-  public userId;
+  public user_Id: any;
   public amountSpent: number;
   public amountLent: number;
   public allGroupUsers: any;
   public paidBySelectedUsers = [];
   public usersInvolvedSelected = [];
+  public userId;
 
   constructor(public _route: ActivatedRoute, public router: Router,
-    public expenseHttpService: ExpenseHttpService,
-    public groupHttpService: GroupHttpService,
-    public socketService: SocketService, public toastr: ToastrService,
+    public expenseHttpService: ExpenseHttpService, public groupHttpService: GroupHttpService,
+    public socketService: SocketService, public toastr: ToastrService, public cookieService: CookieService,
     public location: Location) { }
 
   ngOnInit() {
-    this.userId = Cookie.get('userId');
-    this.updatedBy = Cookie.get('userId');
+    //debugger
+    this.userId = this.cookieService.get('userId');
+    this.user_Id = this.cookieService.get('_id');
+    this.createdBy = this.user_Id;
+    this.updatedBy = this.cookieService.get('_id');
     this.expenseId = this._route.snapshot.paramMap.get('expenseId');
     this.getSingleExpenseDetails(this.expenseId);
   }
@@ -87,7 +91,6 @@ export class EditExpenseComponent implements OnInit {
 
     this.paidBy = [];
     this.usersInvolved = [];
-    //this.updatedBy = '';
 
     let noOfPaidUsers = this.paidBySelectedUsers.length;
 

@@ -73,6 +73,7 @@ export class AddexpenseComponent implements OnInit {
   // create expense code start
 
   public createExpense = () => {
+    //debugger
     console.log(this.paidBySelectedUsers, this.usersInvolvedSelected)
     let noOfPaidUsers = this.paidBySelectedUsers.length;
 

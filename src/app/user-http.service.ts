@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { userData } from './shared/userData';
 
@@ -8,7 +9,7 @@ import { userData } from './shared/userData';
   providedIn: 'root'
 })
 export class UserHttpService {
-  private userSubject: BehaviorSubject<userData>;
+  public userSubject: BehaviorSubject<userData>;
   public user: Observable<userData>;
 
   //public baseurl ='http://localhost:3000/api/v1/users';
@@ -16,31 +17,30 @@ export class UserHttpService {
 
   public authToken = Cookie.get('authToken');
 
-
   constructor(public http: HttpClient) {
     this.userSubject = new BehaviorSubject<userData>(JSON.parse(localStorage.getItem('userInfo')));
     this.user = this.userSubject.asObservable();
   }
 
   public get userValue(): userData {
+    this.userSubject = new BehaviorSubject<userData>(JSON.parse(localStorage.getItem('userInfo')));
+    this.user = this.userSubject.asObservable();
     return this.userSubject.value;
-}
+  }
+
 
   public getUserInfoFromLocalstorage = () => {
-
     return JSON.parse(localStorage.getItem('userInfo'));
-
   } // end getUserInfoFromLocalstorage
 
 
   public setUserInfoInLocalStorage = (data) => {
-
     localStorage.setItem('userInfo', JSON.stringify(data))
       //console.log(this.setUserInfoInLocalStorage)
   }
 
     //signup code start
-    public signupfunction = (data): any => {
+  public signupfunction = (data): any => {
 
       let params = new HttpParams()
         .set("firstName", data.firstName)
@@ -60,7 +60,13 @@ export class UserHttpService {
       let params = new HttpParams()
         .set('email', data.email)
         .set('password', data.password)
-      return this.http.post(`${this.baseurl}/login`, params);
+      return this.http.post<userData>(`${this.baseurl}/login`, params)
+      .pipe(map(userInfo => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        this.userSubject.next(userInfo);
+        return userInfo;
+    }));
     }
     //login code end
 
@@ -70,8 +76,7 @@ export class UserHttpService {
         .set('email', email)
       return this.http.post(`${this.baseurl}/forgotPassword`, params);
 
-    }
-    //send reset token code end
+    }//send reset token code end
 
     //reset password code start
     public resetPassword = (data): any => {
@@ -79,26 +84,18 @@ export class UserHttpService {
         .set('password', data.password)
         .set('resetPasswordToken', data.resetPasswordToken)
       return this.http.post(`${this.baseurl}/resetPassword`, params);
-
-    }
-    //reset password code end
+    } //reset password code end
 
 
     //get all Users code start
     public getAllUsers = (): any => {
-
       return this.http.get(`${this.baseurl}/view/all?authToken=${this.authToken}`);
-
-    }
-    //get all Users code end
+    } //get all Users code end
 
 
     // get single user details
     public getSingleUser =(userId):any =>{
-
       return this.http.get(`${this.baseurl}/${userId}/details?authToken=${this.authToken}`);
-
-    }
-    //end get single user details
+    } //end get single user details
 
 }

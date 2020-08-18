@@ -47,7 +47,6 @@ export class ViewExpenseComponent implements OnInit {
   public getSingleExpenseDetails = (expenseId) => {
 
     this.expenseHttpService.getSingleExpenseDetails(expenseId).subscribe((apiresponse) => {
-      //console.log('apiresponseuserofexp: ' + apiresponse.users[0].socketroom);
       this.expenseData=apiresponse.data;
 
       let array1=apiresponse.data.paidBy;

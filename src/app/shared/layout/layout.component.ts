@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Cookie } from 'ng2-cookies';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { ToastrService } from 'ngx-toastr';
 import { UserHttpService } from 'src/app/user-http.service';
 import { userData } from '../../shared/userData';
@@ -23,11 +23,15 @@ export class LayoutComponent implements OnInit {
   }
   //logout code start
   public logout = () => {
+    // remove user from local storage and set current user to null
+    localStorage.removeItem('userInfo');
+
     Cookie.delete('authToken');
     Cookie.delete('_id');
     Cookie.delete('userId');
     Cookie.delete('userName');
     this.toastr.success('logout successfully');
+
     setTimeout(() => {
       this.router.navigate(['/login']);
     }, 1000);

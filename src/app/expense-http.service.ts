@@ -33,6 +33,7 @@ export class ExpenseHttpService {
   public getAllExpensesInGroup(groupId): Observable<any> {
     return this.http.get(`${this.baseurl}/${groupId}/view/all?authToken=${this.authToken}`);
   }
+
   public createExpense(data): Observable<any> {
 
     let paidByArray=JSON.stringify(data.paidBy);
@@ -44,6 +45,7 @@ export class ExpenseHttpService {
     .set('expenseDescription', data.expenseDescription)
     .set('expenseAmount', data.expenseAmount)
     .set('createdBy', data.createdBy)
+    .set('updatedBy', data.updatedBy)
     .set('paidBy', paidByArray)
     .set('usersInvolved', usersInvolvedArray);
 
@@ -64,16 +66,17 @@ export class ExpenseHttpService {
     .set('expenseDescription', data.expenseDescription)
     .set('expenseAmount', data.expenseAmount)
     .set('createdBy', data.createdBy)
+    .set('updatedBy', data.updatedBy)
     .set('paidBy', paidByArray)
     .set('usersInvolved', usersInvolvedArray);
 
     return this.http.put(`${this.baseurl}/${data.expenseId}/updateExpense?authToken=${this.authToken}`, params);
   }
+
   public getSingleExpenseDetails(expenseId): Observable<any> {
-
-
     return this.http.get(`${this.baseurl}/${expenseId}/details?authToken=${this.authToken}`);
   }
+
   public deleteExpense(expenseId):Observable<any> {
     let params=new HttpParams()
     .set('expenseId',expenseId)
@@ -81,7 +84,6 @@ export class ExpenseHttpService {
   }
 
   public getExpenseHistory(expenseId):Observable<any> {
-
     return this.http.get(`${this.baseurl}/${expenseId}/getExpenseHistory?authToken=${this.authToken}`)
   }
 }
