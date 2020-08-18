@@ -4,6 +4,7 @@ import { CookieService } from 'ng2-cookies';
 import { Router } from '@angular/router';
 import { GroupHttpService } from 'src/app/group-http.service';
 import { groupData } from 'src/app/shared/groupData';
+import { ToastrService } from 'ngx-toastr';
 //import{FormsModule} from '@angular/forms';
 
 @Component({
@@ -28,6 +29,7 @@ constructor(
     public userHttpService: UserHttpService,
     public groupHttpService:GroupHttpService,
     public cookie: CookieService,
+    public toastr: ToastrService,
     public router: Router
     ) {
   }
@@ -60,9 +62,14 @@ constructor(
     };
 
     this.groupHttpService.createGroup(data).subscribe((apiresponse) => {
-      console.log('groupid: ' + apiresponse.data.groupId);
+      if(apiresponse == true){
+        this.toastr.warning(apiresponse.message);
+      } else{
+        console.log('groupid: ' + apiresponse.data.groupId);
+        this.toastr.success(apiresponse.message);
+        this.router.navigate(['/userdashboard']);
 
-      this.router.navigate(['/userdashboard']);
+      }
 
     });
   }
